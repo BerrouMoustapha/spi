@@ -9,7 +9,9 @@ import java.util.List;
 @Repository
 public interface CandidatRepository extends JpaRepository<CandidatEntity,String>{
 
+    // Chercher par nom
     List<CandidatEntity> findByName(String name);
+    // Chercher par Université
     List<CandidatEntity> findByUniversity(String university);
 
 

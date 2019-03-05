@@ -1,15 +1,14 @@
 package fr.ubo.spi.projetAgileSpi.dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "promotion", schema = "projet_agile_spi", catalog = "")
+@IdClass(PromotionEntityPK.class)
 public class PromotionEntity {
+    private String codeFormation;
     private String anneeUniversitaire;
     private String siglePromotion;
     private Short nbMaxEtudiant;
@@ -19,8 +18,20 @@ public class PromotionEntity {
     private String lieuRentree;
     private String processusStage;
     private String commentaire;
+    private FormationEntity formationByCodeFormation;
+    private EnseignantEntity enseignantByNoEnseignant;
 
-    @Basic
+    @Id
+    @Column(name = "CODE_FORMATION")
+    public String getCodeFormation() {
+        return codeFormation;
+    }
+
+    public void setCodeFormation(String codeFormation) {
+        this.codeFormation = codeFormation;
+    }
+
+    @Id
     @Column(name = "ANNEE_UNIVERSITAIRE")
     public String getAnneeUniversitaire() {
         return anneeUniversitaire;
@@ -115,7 +126,8 @@ public class PromotionEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PromotionEntity that = (PromotionEntity) o;
-        return Objects.equals(anneeUniversitaire, that.anneeUniversitaire) &&
+        return Objects.equals(codeFormation, that.codeFormation) &&
+                Objects.equals(anneeUniversitaire, that.anneeUniversitaire) &&
                 Objects.equals(siglePromotion, that.siglePromotion) &&
                 Objects.equals(nbMaxEtudiant, that.nbMaxEtudiant) &&
                 Objects.equals(dateReponseLp, that.dateReponseLp) &&
@@ -128,6 +140,26 @@ public class PromotionEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(anneeUniversitaire, siglePromotion, nbMaxEtudiant, dateReponseLp, dateReponseLalp, dateRentree, lieuRentree, processusStage, commentaire);
+        return Objects.hash(codeFormation, anneeUniversitaire, siglePromotion, nbMaxEtudiant, dateReponseLp, dateReponseLalp, dateRentree, lieuRentree, processusStage, commentaire);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "CODE_FORMATION", referencedColumnName = "CODE_FORMATION", nullable = false)
+    public FormationEntity getFormationByCodeFormation() {
+        return formationByCodeFormation;
+    }
+
+    public void setFormationByCodeFormation(FormationEntity formationByCodeFormation) {
+        this.formationByCodeFormation = formationByCodeFormation;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NO_ENSEIGNANT", referencedColumnName = "NO_ENSEIGNANT")
+    public EnseignantEntity getEnseignantByNoEnseignant() {
+        return enseignantByNoEnseignant;
+    }
+
+    public void setEnseignantByNoEnseignant(EnseignantEntity enseignantByNoEnseignant) {
+        this.enseignantByNoEnseignant = enseignantByNoEnseignant;
     }
 }

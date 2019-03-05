@@ -31,11 +31,13 @@ public class PromotionController {
     public PromotionEntity createPromotion(@Valid @RequestBody PromotionEntity promotion) {
         return promotionRepository.save(promotion);
     }
+
     // Get Promotion By Sigle
     @GetMapping("/promotions/sigle/{siglePromotion}")
     public List<PromotionEntity> getPromotionBySigle(@PathVariable(value = "siglePromotion") String siglePromotion) {
         return promotionRepository.findBySiglePromotion(siglePromotion);
     }
+
     // Get a Single Promotion By Id
     @GetMapping("/promotion/{id}")
     public PromotionEntity getPromotionById(@PathVariable(value = "id") String anneeUniversitaire) {

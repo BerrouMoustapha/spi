@@ -12,9 +12,9 @@ import java.util.List;
 public class FormationController {
     FormationRepository formationRepository;
 
-    // Delete a Formation By Id
-    @DeleteMapping("/formation/{id}")
-    public ResponseEntity<?> deleteFormation(@PathVariable(value = "id") String codeFormation) {
+    // Delete a Formation By codeFormation
+    @DeleteMapping("/formation/{codeFormation}")
+    public ResponseEntity<?> deleteFormationByCodeFormation(@PathVariable(value = "id") String codeFormation) {
         FormationEntity formation = formationRepository.findById(codeFormation)
                 .orElseThrow(() -> new ResourceNotFoundException("Formation", "codeFormation", codeFormation));
         formationRepository.delete(formation);
@@ -32,13 +32,14 @@ public class FormationController {
     public FormationEntity createFormation(@Valid @RequestBody FormationEntity formation) {
         return formationRepository.save(formation);
     }
+
     //Get Formation By Name
     @GetMapping("/formations/nom/{nom}")
     public List<FormationEntity> getFormationByNom(@PathVariable(value = "nom") String name) {
         return formationRepository.findByNameFormation(name);
     }
 
-    // Get a Single Formation By Id
+    // Get a Single Formation By Id = codeFormation
     @GetMapping("/formation/{id}")
     public FormationEntity getFormationById(@PathVariable(value = "id") String codeFormation) {
         return formationRepository.findById(codeFormation)

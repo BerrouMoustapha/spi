@@ -36,16 +36,19 @@ public class EnseignantController {
     public EnseignantEntity createEnseignant(@Valid @RequestBody EnseignantEntity enseignant) {
         return enseignantRepository.save(enseignant);
     }
+
     //Get Enseignant By Name
     @GetMapping("/enseignants/nom/{nom}")
     public List<EnseignantEntity> getEnseignantByName(@PathVariable(value = "nom") String name) {
         return enseignantRepository.findByName(name);
       }
+
     //Get Enseignant By Email
     @GetMapping("/enseignants/emailUbo/{emailUbo}")
     public List<EnseignantEntity> getEnseignantByEmailUbo(@PathVariable(value = "emailUbo") String email) {
         return enseignantRepository.findByEmail(email);
         }
+
     // Get a Single Enseignant By Id : noEnseignant
     @GetMapping("/enseignant/{id}")
     public EnseignantEntity getEnseignantById(@PathVariable(value = "id") String noEnseignant) {
