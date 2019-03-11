@@ -1,6 +1,5 @@
 package fr.ubo.spi.projetAgileSpi.controller;
 
-import fr.ubo.spi.projetAgileSpi.dao.FormationEntity;
 import fr.ubo.spi.projetAgileSpi.exception.ResourceNotFoundException;
 import fr.ubo.spi.projetAgileSpi.repository.FormationRepository;
 import org.springframework.http.ResponseEntity;
